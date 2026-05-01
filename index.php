@@ -113,11 +113,11 @@ function saveNewApplication($data) {
     try {
         $pdo->beginTransaction();
 
-        $sql_app = "INSERT INTO application (fio, phone, email, birth_date, gender, biography, agreement, login, password_hash)
-                    VALUES (:fio, :phone, :email, :birth_date, :gender, :biography, :agreement, :login, :password_hash)";
+        $sql_app = "INSERT INTO application (full_name, phone, email, birth_date, gender, biography, agreement, login, password_hash)
+                    VALUES (:full_name, :phone, :email, :birth_date, :gender, :biography, :agreement, :login, :password_hash)";
         $stmt_app = $pdo->prepare($sql_app);
         $stmt_app->execute([
-            ':fio' => $data['full_name'],
+            ':full_name' => $data['full_name'],
             ':phone' => $data['phone'],
             ':email' => $data['email'],
             ':birth_date' => $data['birth_date'],
