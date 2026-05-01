@@ -22,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $error = 'Введите логин и пароль.';
     } else {
         $pdo = getDbConnection();
-        $stmt = $pdo->prepare("SELECT id, fio, password_hash FROM application WHERE login = :login");
+        $stmt = $pdo->prepare("SELECT id, full_name, password_hash FROM application WHERE login = :login");
         $stmt->execute([':login' => $login]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password_hash'])) {
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['fio'];
+            $_SESSION['user_name'] = $user['full_name'];
             header('Location: form.php');
             exit();
         } else {
