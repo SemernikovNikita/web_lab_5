@@ -127,12 +127,12 @@ foreach ($errors as $e) {
 
 if (!empty($_SESSION['user_id']) && !$has_errors) {
     $pdo = getDbConnection();
-    $stmt = $pdo->prepare("SELECT fio, phone, email, birth_date, gender, biography, agreement FROM application WHERE id = :id");
+    $stmt = $pdo->prepare("SELECT full_name, phone, email, birth_date, gender, biography, agreement FROM application WHERE id = :id");
     $stmt->execute([':id' => $_SESSION['user_id']]);
     $app = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($app) {
-        $values["full_name"] = htmlspecialchars($app['fio']);
+        $values["full_name"] = htmlspecialchars($app['full_name']);
         $values["phone"] = htmlspecialchars($app['phone']);
         $values["email"] = htmlspecialchars($app['email']);
         $values["birth_date"] = htmlspecialchars($app['birth_date']);
